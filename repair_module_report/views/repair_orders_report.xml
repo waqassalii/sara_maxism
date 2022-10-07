@@ -213,196 +213,197 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
 
 
-                    <br/>
-                    <br/>
-                    <div class="row">
-                        <div class="col-12">
-                            <style type="text/css">
-                                table {
-                                border-collapse: collapse;
-                                width: 100%;
-                                }
-                                th {
-                                border: 1px solid black;
-                                border-top: 1px solid black !important;
-                                }
-                                td {
-                                border-top: 1px solid black !important;
-                                }
-                                thead {
-                                background-color: #d3d3d3;
-                                }
-                                .main_border {
-                                border-top: 1px solid black !important;
-                                }
-                                .table th, .table td {
-                                border-top: 1px solid black !important;
-                            </style>
+
+                        <br/>
+                        <br/>
+                        <div class="row">
+                            <div class="col-12">
+                                <style type="text/css">
+                                    table {
+                                    border-collapse: collapse;
+                                    width: 100%;
+                                    }
+                                    th {
+                                    border: 1px solid black;
+                                    border-top: 1px solid black !important;
+                                    }
+                                    td {
+                                    border-top: 1px solid black !important;
+                                    }
+                                    thead {
+                                    background-color: #d3d3d3;
+                                    }
+                                    .main_border {
+                                    border-top: 1px solid black !important;
+                                    }
+                                    .table th, .table td {
+                                    border-top: 1px solid black !important;
+                                </style>
 
 
-                            <t t-set="total_qty" t-value="0"/>
-                            <t t-set="total_qty_done" t-value="0"/>
+                                <t t-set="total_qty" t-value="0"/>
+                                <t t-set="total_qty_done" t-value="0"/>
 
-                            <table class="table table-sm o_main_table" style="font-size:14px;height:100px">
-                                <thead class="main_border" style="text-align:left">
-                                    <tr>
-                                        <th name="th_sn" class="text-left">
-                                            <strong>Fault Details</strong>
-                                        </th>
-
-                                    </tr>
-                                </thead>
-                                <tbody style="border:1px solid black">
-                                    <tr>
-                                        <td style="line-height:3px;padding-top:10px">
-                                            <t t-raw="o.fault_note"/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table class="table table-sm o_main_table" style="font-size:14px;height:100px">
-                                <thead class="main_border" style="text-align:left">
-                                    <tr>
-                                        <th name="th_sn" class="text-left">
-                                            <strong>Performed Services</strong>
-                                        </th>
-
-                                    </tr>
-                                </thead>
-                                <tbody style="border:1px solid black">
-                                    <tr>
-                                        <td style="border:1px solid black;line-height:3px;padding-top:10px">
-                                            <t t-raw="o.performed_services"/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table class="table table-sm o_main_table" style="font-size:14px;height:100px">
-                                <thead class="main_border" style="text-align:left">
-                                    <tr>
-                                        <th name="th_sn" class="text-left">
-                                            <strong>Further Actions</strong>
-                                        </th>
-
-                                    </tr>
-                                </thead>
-                                <tbody style="border:1px solid black">
-                                    <tr>
-                                        <td style="border:1px solid black;line-height:3px;padding-top:10px;word-wrap: break-word;">
-                                            <t t-raw="o.further_actions"/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <t t-if="o.operations">
-                                <table class="table table-sm" style="font-size:14px">
-                                    <thead style="text-align:left">
+                                <table class="table table-sm o_main_table" style="font-size:14px;height:100px">
+                                    <thead class="main_border" style="text-align:left">
                                         <tr>
-                                            <th class="text-left" colspan="6">
-                                                <strong>Spare Added/Removed</strong>
-                                            </th>
-
-                                        </tr>
-                                        <tr>
-                                            <th class="text-center" style="width:7px">
-                                                <strong>S/N</strong>
-                                            </th>
-                                            <th class="text-center">
-                                                <strong>Status</strong>
-                                            </th>
-                                            <th class="text-center">
-                                                <strong>Code</strong>
-                                            </th>
-                                            <th class="text-center">
-                                                <strong>Description</strong>
-                                            </th>
-                                            <th class="text-center">
-                                                <strong>Lot/Serial</strong>
-                                            </th>
-                                            <th class="text-center">
-                                                <strong>Qty</strong>
+                                            <th name="th_sn" class="text-left">
+                                                <strong>Fault Details</strong>
                                             </th>
 
                                         </tr>
                                     </thead>
-
-                                    <tbody style="border:1px solid black;text-align:center">
-                                        <t t-set="i" t-value="0"/>
-                                        <t t-foreach="o.operations" t-as="line">
-                                            <t t-set="i" t-value="i+1"/>
-                                            <tr>
-                                                <td>
-                                                    <span t-esc="i"/>
-
-
-                                                </td>
-                                                <td>
-                                                    <!--                                            <t t-esc="line.type"/>-->
-                                                    <t t-esc="dict(line.fields_get(allfields=['type'])['type']['selection'])[line.type]"/>
-                                                </td>
-                                                <td>
-                                                    <t t-esc="line.product_id.default_code"/>
-                                                </td>
-                                                <td class="text-left">
-                                                    <t t-esc="line.product_id.name"/>
-                                                </td>
-                                                <td>
-                                                    <t t-esc="line.lot_id.name"/>
-                                                </td>
-                                                <td>
-                                                    <t t-esc="'{:,}'.format(int(line.product_uom_qty))"/>
-                                                </td>
-                                            </tr>
-                                        </t>
+                                    <tbody style="border:1px solid black">
+                                        <tr>
+                                            <td style="line-height:3px;padding-top:10px">
+                                                <t t-raw="o.fault_note"/>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
-                            </t>
-                            <table class="table table-sm o_main_table" style="font-size:14px;height:100px">
-                                <thead class="main_border" style="text-align:left">
-                                    <tr>
-                                        <th name="th_sn" class="text-left">
-                                            <strong>Customer Comments</strong>
-                                        </th>
+                                <table class="table table-sm o_main_table" style="font-size:14px;height:100px">
+                                    <thead class="main_border" style="text-align:left">
+                                        <tr>
+                                            <th name="th_sn" class="text-left">
+                                                <strong>Performed Services</strong>
+                                            </th>
 
-                                    </tr>
-                                </thead>
-                                <tbody style="border:1px solid black">
-                                    <tr>
-                                        <td>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="border:1px solid black">
+                                        <tr>
+                                            <td style="border:1px solid black;line-height:3px;padding-top:10px">
+                                                <t t-raw="o.performed_services"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table table-sm o_main_table" style="font-size:14px;height:100px">
+                                    <thead class="main_border" style="text-align:left">
+                                        <tr>
+                                            <th name="th_sn" class="text-left">
+                                                <strong>Further Actions</strong>
+                                            </th>
 
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <br/>
-                                    <table class="table table-sm o_main_table" style="font-size:14px;height:100px;">
-                                        <thead class="main_border" style="text-align:left">
+                                        </tr>
+                                    </thead>
+                                    <tbody style="border:1px solid black">
+                                        <tr>
+                                            <td style="border:1px solid black;line-height:3px;padding-top:10px;word-wrap: break-word;">
+                                                <t t-raw="o.further_actions"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <t t-if="o.operations">
+                                    <table class="table table-sm" style="font-size:14px">
+                                        <thead style="text-align:left">
                                             <tr>
-                                                <th name="th_sn" class="text-left">
-                                                    <strong>Engineer Signature</strong>
+                                                <th class="text-left" colspan="6">
+                                                    <strong>Spare Added/Removed</strong>
                                                 </th>
-                                                <th name="th_sn" class="text-left">
-                                                    <strong>Customer Signature</strong>
+
+                                            </tr>
+                                            <tr>
+                                                <th class="text-center" style="width:7px">
+                                                    <strong>S/N</strong>
+                                                </th>
+                                                <th class="text-center">
+                                                    <strong>Status</strong>
+                                                </th>
+                                                <th class="text-center">
+                                                    <strong>Code</strong>
+                                                </th>
+                                                <th class="text-center">
+                                                    <strong>Description</strong>
+                                                </th>
+                                                <th class="text-center">
+                                                    <strong>Lot/Serial</strong>
+                                                </th>
+                                                <th class="text-center">
+                                                    <strong>Qty</strong>
                                                 </th>
 
                                             </tr>
                                         </thead>
-                                        <tbody style="border:1px solid black">
-                                            <tr>
-                                                <td style="border:1px solid black">
 
-                                                </td>
-                                                <td style="border:1px solid black">
+                                        <tbody style="border:1px solid black;text-align:center">
+                                            <t t-set="i" t-value="0"/>
+                                            <t t-foreach="o.operations" t-as="line">
+                                                <t t-set="i" t-value="i+1"/>
+                                                <tr>
+                                                    <td>
+                                                        <span t-esc="i"/>
 
-                                                </td>
-                                            </tr>
+
+                                                    </td>
+                                                    <td>
+                                                        <!--                                            <t t-esc="line.type"/>-->
+                                                        <t t-esc="dict(line.fields_get(allfields=['type'])['type']['selection'])[line.type]"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="line.product_id.default_code"/>
+                                                    </td>
+                                                    <td class="text-left">
+                                                        <t t-esc="line.product_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="line.lot_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="'{:,}'.format(int(line.product_uom_qty))"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
                                         </tbody>
                                     </table>
+                                </t>
+                                <table class="table table-sm o_main_table" style="font-size:14px;height:100px">
+                                    <thead class="main_border" style="text-align:left">
+                                        <tr>
+                                            <th name="th_sn" class="text-left">
+                                                <strong>Customer Comments</strong>
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody style="border:1px solid black">
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <br/>
+                                <table class="table table-sm o_main_table" style="font-size:14px;height:100px;">
+                                    <thead class="main_border" style="text-align:left">
+                                        <tr>
+                                            <th name="th_sn" class="text-left">
+                                                <strong>Engineer Signature</strong>
+                                            </th>
+                                            <th name="th_sn" class="text-left">
+                                                <strong>Customer Signature</strong>
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody style="border:1px solid black">
+                                        <tr>
+                                            <td style="border:1px solid black">
+
+                                            </td>
+                                            <td style="border:1px solid black">
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
 
+                            </div>
                         </div>
                     </div>
 
