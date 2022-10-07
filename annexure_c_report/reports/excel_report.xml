@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_annexure_xlsx" model="ir.actions.report">
+        <field name="name">Annexure C Report</field>
+        <field name="model">annexure.reportform</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">annexure_c_report.report_annexure_c</field>
+        <field name="report_file">annexure_c_report.report_annexure_c</field>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

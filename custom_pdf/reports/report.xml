@@ -1,0 +1,134 @@
+<odoo>
+    <template id="custom_pdf_qweb">
+        <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                        <table class="table table-bordered" style=" font-family: arial, sans-serif; border-collapse: collapse;width: 100%;border:1px solid black">
+                            <tr style="background-color:#D9D9D9;border:1px solid black">
+                                <th>A</th>
+                                <th>B</th>
+                                <th>C</th>
+                                <th>D</th>
+                                <th>E</th>
+                                <th>F</th>
+                            </tr>
+                        </table>
+
+                        <table class="table table-bordered" style=" font-family: arial, sans-serif;border-collapse: collapse;width: 100%;border:1px solid black">
+                            <tr style="background-color:#D9D9D9;border:1px solid black">
+                                <th>S/N</th>
+                                <th>Code</th>
+                                <th>Description</th>
+                                <th>Total Sale Order Quantity</th>
+                                <th>Total Inventory Quantity</th>
+                                <th>To Be Arrange</th>
+                            </tr>
+                            <h2 style="text-align:center;">Open Sales Order</h2>
+
+                            <tr t-foreach="all_data" style="border:1px solid black" t-as='line'>
+                                <td><t t-esc="line[0]"/></td>
+                                <td><t t-esc="line[1]"/></td>
+                                <td><t t-esc="line[2]"/></td>
+                                <td><t t-esc="line[3]"/></td>
+                                <td><t t-esc="line[4]"/></td>
+                                <td><t t-esc="line[5]"/></td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                </t>
+        </t>
+    </template>
+
+    <record id="hotel_custom_pdf" model="ir.actions.report">
+        <field name="name">Open Sale Order Report</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_file">custom_pdf.custom_pdf_qweb</field>
+        <field name="report_name">custom_pdf.custom_pdf_qweb</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+    </record>
+
+    <report id="xlsx_open_sale_order_xlsx"
+                model="wizard.report"
+                string="Open Sale Order Report"
+                report_type="xlsx"
+                name="custom_pdf.xlsx_open_sale_order_xlsx"
+                file="Open Sale Order Report"/>
+</odoo>
+        <!--<table style=" font-family: arial, sans-serif;-->
+        <!--  border-collapse: collapse;-->
+        <!--  width: 100%;">-->
+        <!--  <tr style="background-color:#D9D9D9;">-->
+        <!--    <th>A</th>-->
+        <!--    <th>B</th>-->
+        <!--    <th>C</th>-->
+        <!--    <th>D</th>-->
+        <!--    <th>E</th>-->
+        <!--    <th>F</th>-->
+        <!--  </tr>-->
+        <!--  </table>-->
+
+        <!--<table style=" font-family: arial, sans-serif;-->
+        <!--  border-collapse: collapse;-->
+        <!--  width: 100%;">-->
+        <!--  <tr style="background-color:#D9D9D9;">-->
+        <!--    <th>S/N</th>-->
+        <!--    <th>Code</th>-->
+        <!--    <th>Description</th>-->
+        <!--    <th>Total Sale Order Quantity</th>-->
+        <!--    <th>Total Inventory Quantity</th>-->
+        <!--    <th>To Be Arrange</th>-->
+        <!--  </tr>-->
+        <!--  <h2 style="text-align:center;">Open Sales Order</h2>-->
+        <!--  -->
+        <!--  -->
+        <!--  <tr>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td>E-D </td>-->
+        <!--  </tr>-->
+        <!--  <tr>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td>E-D </td>-->
+        <!--  </tr>-->
+        <!--  <tr>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td>E-D </td>-->
+        <!--  </tr>-->
+        <!--  <tr>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td>E-D </td>-->
+        <!--  </tr>-->
+        <!--  <tr>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td>E-D </td>-->
+        <!--  </tr>-->
+        <!--  <tr>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td> </td>-->
+        <!--    <td>E-D </td>-->
+        <!--  </tr>-->

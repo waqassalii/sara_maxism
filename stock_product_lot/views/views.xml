@@ -1,0 +1,34 @@
+<odoo>
+  <data>
+    <record id="view_inherited_lot_form" model="ir.ui.view">
+      <field name="name">stock.production.lot.inherit.form</field>
+      <field name="model">stock.production.lot</field>
+      <field name="inherit_id" ref="stock.view_production_lot_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='ref']" position="after">
+          <field name="asset_tag"/>
+          <field name="installation_date"/>
+          <field name="warranty_expiration"/>
+          <field name="pm_on_date"/>
+          <field name="pm_due_date"/>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="view_inherited_repair_form" model="ir.ui.view">
+        <field name="name">repair.order.inherit.form</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form" />
+        <field name="arch" type="xml">
+        <xpath expr="//field[@name='guarantee_limit']" position="before">
+            <field name="asset_tag"/>
+          <field name="installation_date"/>
+        </xpath>
+          <xpath expr="//field[@name='guarantee_limit']" position="after">
+            <field name="pm_on_date"/>
+          <field name="pm_due_date"/>
+        </xpath>
+        </field>
+    </record>
+  </data>
+</odoo>

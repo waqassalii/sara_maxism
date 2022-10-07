@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!-- FORM VIEW  -->
+
+        <record id="delivery_button_sale_order_view" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <header>
+                    <button name="create_custom_delivery_order" type="object" string="Create Delivery Order"
+                            class="btn-primary"
+                            attrs="{'invisible':[('state','!=','sale'),('delivery_count','&gt;',0)]}"/>
+                </header>
+                <xpath expr="//field[@name='user_id']" position="replace">
+                    <field name="user_id" widget="many2one_avatar_user"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

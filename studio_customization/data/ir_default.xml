@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <record id="studio_customization.new_integer_purchase_dfaaaada-2ce3-4c43-9407-b60e7f2eee2b" model="ir.default" context="{'studio': True}">
+    <field name="field_id" ref="studio_customization.new_integer_purchase_7c2d4194-bde3-44c2-84fe-06329d0c3f54"/>
+    <field name="condition" eval="False"/>
+    <field name="json_value">"0"</field>
+  </record>
+</odoo>

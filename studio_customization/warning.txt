@@ -1,0 +1,56 @@
+The following relational data haven't been exported because they either refer
+to a model that Studio doesn't export, or have no XML id:
+
+Record: base.paperformat_euro
+Model: report.paperformat
+Field: report_ids
+Type: one2many
+Value: ir.actions.report(362, 822, 824, 814, 819) ('Quotation / Order', 'Sales Order Report 08Jun2021', 'Sales Order Report 10Jun2021', 'Sales Order Report 2', 'Sales Quotation 27May2021')
+
+Record: studio_customization.a4_for_purchase_orde_3f6cfa5f-4aea-4bf4-a57b-cdac18fd11b9
+Model: report.paperformat
+Field: report_ids
+Type: one2many
+Value: ir.actions.report(834, 828, 838, 830, 836) ('Purchase Order', 'Purchase Order 22Jun2021', 'Request for Quotation 30Jun2021', 'Sales Order Report 15Jun2021 copy(1)', 'Sales Order Report 15Jun2021 copy(1) copy(1)')
+
+Record: studio_customization.delivery_challan_25j_0aeb75ec-19d5-47fb-a41c-5b424d7e399c
+Model: ir.actions.report
+Field: paperformat_id
+Type: many2one
+Value: report.paperformat(12,) ('A4 for Delivery Challan')
+
+Record: studio_customization.delivery_report_bf71acee-bdd5-4d25-98cd-1d3a85490916
+Model: ir.actions.report
+Field: paperformat_id
+Type: many2one
+Value: report.paperformat(12,) ('A4 for Delivery Challan')
+
+Record: studio_customization.invoice_report_16jun_7bd797e3-814c-459b-b796-a61bc5f1d75a
+Model: ir.actions.report
+Field: paperformat_id
+Type: many2one
+Value: report.paperformat(10,) ('A4 for Invoices')
+
+Record: studio_customization.invoice_report_16jun_e655421a-1878-45cd-9bb5-ad95aa06a5d6
+Model: ir.actions.report
+Field: paperformat_id
+Type: many2one
+Value: report.paperformat(10,) ('A4 for Invoices')
+
+Record: studio_customization.invoice_report_8e5ed585-9a86-4e99-b155-18404950b462
+Model: ir.actions.report
+Field: paperformat_id
+Type: many2one
+Value: report.paperformat(10,) ('A4 for Invoices')
+
+Record: studio_customization.sales_order_report_1_29526ce4-16d8-4043-9161-7c5dd9b17bf3
+Model: ir.actions.report
+Field: paperformat_id
+Type: many2one
+Value: report.paperformat(9,) ('A4 for Quotations')
+
+Record: studio_customization.sales_order_report_1_831cdb9f-c554-4c69-8340-11b54ed85d86
+Model: ir.actions.report
+Field: paperformat_id
+Type: many2one
+Value: report.paperformat(9,) ('A4 for Quotations')

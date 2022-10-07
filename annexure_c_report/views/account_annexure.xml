@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_annexure"
+              name="Annexure C"
+              parent="account.menu_finance_reports"
+              action="annexure_c_report.wizard_action_form_fields"
+              sequence="1"/>
+</odoo>

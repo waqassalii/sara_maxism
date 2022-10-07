@@ -1,0 +1,22 @@
+<odoo>
+  <data>
+    <record id="custom_sale_order_from_ext" model="ir.ui.view">
+        <field name="name">sale.order.form.ext</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sale_order_template_id']" position="after">
+                <field name="delivery"/>
+                <field name="end_user"/>
+                <field name="delivery_term"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree//field[@name='name']" position="after">
+                    <field name="product_code"/>
+                </xpath>
+            <xpath expr="//field[@name='order_line']/tree//field[@name='price_total']" position="replace">
+                    <field name="price_total"/>
+                </xpath>
+        </field>
+    </record>
+  </data>
+</odoo>

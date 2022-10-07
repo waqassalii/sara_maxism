@@ -1,0 +1,39 @@
+<odoo>
+
+    <record id="view_repair_order_inherit_form" model="ir.ui.view">
+        <field name="name">repair.order.inherit.view</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Fault Details">
+                    <form>
+                        <group>
+                            <field name="fault_note" nolabel="1" placeholder="Write fault details here" widget="html"/>
+                        </group>
+                    </form>
+                </page>
+                <page string="Service Performed">
+                    <form>
+                        <group>
+                            <field name="performed_services" nolabel="1" placeholder="Write about performed services"
+                                   widget="html"/>
+                        </group>
+                    </form>
+                </page>
+                <page string="Further Actions">
+                    <form>
+                        <group>
+                            <field name="further_actions" nolabel="1" placeholder="If there any further action..."
+                                   widget="html"/>
+                        </group>
+                    </form>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
+
+
+

@@ -1,0 +1,702 @@
+<odoo>
+    <data>
+
+
+        <record model="ir.ui.view" id="stock_picking_view_custom_ext">
+            <field name="name">stock.picking.view.custom.ext</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='picking_type_id']" position="after">
+                    <field name="end_user"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sale_order_view_custom_ext">
+            <field name="name">sale_order_view_custom_ext</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="manufacturer"/>
+                </xpath>
+            </field>
+        </record>
+
+                <record model="ir.ui.view" id="sale_order_tree_view_custom_ext">
+            <field name="name">sale_order_tree_view_custom_ext</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='amount_total']" position="after">
+                                        <field name="net_total" sum="Net Total" widget="monetary" optional="show" decoration-bf="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="purchase_order_view_custom_ext">
+            <field name="name">purchase_order_view_custom_ext</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_ref']" position="after">
+                    <field name="ship_to"/>
+                    <field name="invoice_to"/>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                    <field name="default_code"/>
+                </xpath>
+
+            </field>
+        </record>
+
+              <record model="ir.ui.view" id="purchase_order_tree_view_custom_ext">
+            <field name="name">purchase_order_tree_view_custom_ext</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='amount_total']" position="after">
+                                        <field name="net_total" sum="Net Total" widget="monetary" optional="show" decoration-bf="1"/>
+                </xpath>
+            </field>
+        </record>
+
+
+
+        <record model="ir.ui.view" id="partner_view_custom_ext">
+            <field name="name">partner_view_custom_ext</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='fax_number']" position="before">
+<!--                    <field name="gender_type"/>-->
+                    <field name="account_no"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="company_view_custom_ext">
+            <field name="name">company_view_custom_ext</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="company_strn"/>
+                </xpath>
+
+                <xpath expr="//field[@name='website']" position="after">
+                    <separator string="Qf-Codes"/>
+                    <br/>
+
+                    <field name="sale_qf_code"/>
+                    <field name="invoice_qf_code"/>
+                    <field name="Delivery_qf_code"/>
+                    <field name="purchase_qf_code"/>
+
+                    <separator string="Report Custom Logos"/>
+                    <br/>
+
+                    <field name="logo_sale"/>
+                    <field name="logo_purchase"/>
+                    <field name="logo_invoice"/>
+                    <field name="logo_Delivery"/>
+                    <separator string="Invoice Texts"/>
+                    <!--                    class="oe_inline" nolabel="1"-->
+                    <field name="invoice_text"/>
+                    <field name="invoice_text_2"/>
+
+                </xpath>
+            </field>
+        </record>
+
+
+        <template id="purchase_order_report_document_ext">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <div class="page" style="font-size: 14px;line-height: 1.0;">
+                        <t t-foreach="docs" t-as="o">
+                            <style type="text/css">
+                                table {
+                                border-collapse: collapse;
+                                width: 100%;
+                                }
+                                th {
+                                border: 1px solid black;
+                                border-top: 1px solid black !important;
+                                }
+                                td {
+                                border-top: 1px solid black !important;
+                                }
+                                thead {
+                                background-color: #d3d3d3;
+                                }
+                                .main_border {
+                                border-top: 1px solid black !important;
+                                }
+                                .table th, .table td {
+                                border-top: 1px solid black !important;
+                            </style>
+                            <div class="header">
+                                <div class="row">
+
+                                    <img t-if="o.company_id.logo_purchase"
+                                         t-att-src="image_data_uri(o.company_id.logo_purchase)"
+                                         alt="Logo" height="115"/>
+                                </div>
+
+                                <div style="font-size: 14px;line-height: 1.3;">
+                                    <div class="col-10" style="font-size: 14px;float: right; text-align: right;">
+
+                                    </div>
+                                    <div class="col-2" style="font-size: 14px;float: right; text-align: right;">
+                                        <br/>
+                                        <ul
+                                                class="list-inline pagenumber">
+                                            <li class="list-inline-item">
+                                                <p>
+                                                    Page:
+                                                    <span class="page"/>
+                                                    of
+                                                    <span class="topage"/>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <!--    Address Tables  -->
+                                <div id="total" class="row" style="font-size: 14px;line-height: 1.3;">
+                                    <div class="col-4" style="font-size: 14px;line-height: 1.3;">
+                                        <table class="table table-sm">
+                                            <tr>
+                                                <thead class="main_border"
+                                                       style="border: 1px solid black;background-color: lightgray;">
+                                                    <th name="th_to" style="border-top: 1px solid black !important;">
+                                                        <strong>To</strong>
+                                                    </th>
+                                                </thead>
+                                                <td style="border-top: 1px solid black !important;height: 95px;">
+                                                    <span t-field="o.partner_id.parent_id"
+                                                          t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                                                </td>
+                                                <!--                                                <td style="border-top: 1px solid black !important;">-->
+                                                <!--                                                    <span t-field="o.partner_id.gender_type"/>-->
+                                                <!--                                                    <span t-field="o.partner_id.name"/>-->
+                                                <!--                                                    <br/>-->
+                                                <!--                                                    <span t-field="o.partner_id.street"/>,-->
+                                                <!--                                                    <span t-field="o.partner_id.city"/>-->
+                                                <!--                                                </td>-->
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <div class="col-4" style="font-size: 14px;line-height: 1.3;">
+                                        <table class="table table-sm">
+                                            <tr>
+                                                <thead class="main_border"
+                                                       style="border: 1px solid black;background-color: lightgray;">
+                                                    <th name="th_to" style="border-top: 1px solid black !important;">
+                                                        <strong>Invoice To</strong>
+                                                    </th>
+                                                </thead>
+                                                <td style="border-top: 1px solid black !important;height: 95px;">
+                                                    <!--                                            <t t-if="o.dest_address_id">-->
+                                                    <span t-field="o.invoice_to"
+                                                          t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"
+                                                          name="purchase_shipping_address"/>
+                                                    <!--                                            </t>-->
+                                                </td>
+                                                <!--                                                <td style="border-top: 1px solid black !important;">-->
+                                                <!--                                                    <span t-field="o.company_id.name"/>-->
+                                                <!--                                                    <br/>-->
+                                                <!--                                                    <span t-field="o.company_id.street"/>-->
+                                                <!--                                                    <br/>-->
+
+                                                <!--                                                    <span t-field="o.company_id.city"/>-->
+                                                <!--                                                    <span t-field="o.company_id.zip"/>-->
+                                                <!--                                                </td>-->
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <div class="col-4" style="font-size: 14px;line-height: 1.3;">
+                                        <table class="table table-sm">
+                                            <tr>
+                                                <thead class="main_border"
+                                                       style="border: 1px solid black;background-color: lightgray;">
+                                                    <th name="th_to" style="border-top: 1px solid black !important;">
+                                                        <strong>Ship To</strong>
+                                                    </th>
+                                                </thead>
+                                                <td style="border-top: 1px solid black !important;height: 95px;">
+                                                    <!--                                            <t t-if="o.dest_address_id">-->
+                                                    <span t-field="o.ship_to"
+                                                          t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"
+                                                          name="purchase_shipping_address"/>
+                                                    <!--                                            </t>-->
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                                <div class="oe_structure"/>
+                                <div class="row" style="font-size: 14px;">
+                                    <div class="col-9">
+                                        <br/>
+                                        <h2 t-if="o.state == 'draft'">Purchase Order #
+                                            <span t-field="o.name"/>
+                                        </h2>
+                                        <h2 t-if="o.state in ['sent', 'to approve']">Purchase Order #
+                                            <span t-field="o.name"/>
+                                        </h2>
+                                        <h2 t-if="o.state in ['purchase', 'done']">Purchase Order #
+                                            <span t-field="o.name"/>
+                                        </h2>
+                                        <h2 t-if="o.state == 'cancel'">Cancelled Purchase Order #
+                                            <span t-field="o.name"/>
+                                        </h2>
+                                    </div>
+                                    <div class="col-3" style="font-size: 14px;line-height: 1.5;margin-left: 50px;">
+                                        <strong>NTN :</strong>
+                                        <span t-field="o.company_id.vat"/>
+                                        <br/>
+                                        <strong>STRN :</strong>
+                                        <span t-field="o.company_id.company_strn"/>
+                                        <br/>
+                                        <strong>DRAP LIC :</strong>
+                                        <span>ELI-0052</span>
+                                        <br/>
+                                        <strong>QF Code :</strong>
+                                        <span t-field="o.company_id.purchase_qf_code"/>
+                                    </div>
+                                </div>
+                                <!--  Table 1 -->
+                                <table class="table table-sm o_main_table" style="font-size: 14px;line-height: 1.3;">
+                                    <thead class="main_border"
+                                           style="border: 1px solid black;background-color: lightgray;">
+                                        <tr>
+                                            <th name="th_ref" class="text-center"
+                                                style="border-top: 1px solid black;border-right: 1px solid black;">
+                                                <strong>Your Ref.</strong>
+                                            </th>
+                                            <th name="th_tref" class="text-center"
+                                                style="border-top: 1px solid black;border-right: 1px solid black;">
+                                                <strong>Tracking Ref.</strong>
+                                            </th>
+                                            <th name="th_po" class="text-center"
+                                                style="border-top: 1px solid black;border-right: 1px solid black;">
+                                                <strong>PO Date</strong>
+                                            </th>
+                                            <th name="th_shipping_date" class="text-center"
+                                                style="border-top: 1px solid black;border-right: 1px solid black;">
+                                                <strong>Shipping Date</strong>
+                                            </th>
+                                            <th name="th_payment" class="text-center"
+                                                style="border-top: 1px solid black;border-right: 1px solid black;">
+                                                <strong>Payment Terms</strong>
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody style="text-align: center;">
+                                        <t t-foreach="docs" t-as="o">
+                                            <tr>
+                                                <td style="border-top: 1px solid black;">
+                                                    <span t-esc="o.partner_ref"/>
+                                                </td>
+                                                <td style="border-top: 1px solid black;">
+                                                    <span t-esc="o.tracking_ref"/>
+                                                </td>
+                                                <td style="border-top: 1px solid black;">
+                                                    <t t-if="o.date_order">
+                                                        <span t-esc="o.date_order.strftime('%d-%b-%Y')"/>
+                                                    </t>
+                                                    <t t-else="o.date_approve">
+                                                        <span t-esc="o.date_approve.strftime('%d-%b-%Y')"/>
+
+                                                    </t>
+                                                </td>
+                                                <td class="text-center" style="border-top: 1px solid black;">
+                                                    <span t-esc="o.date_planned.strftime('%d-%b-%Y')"/>
+                                                </td>
+                                                <td class="text-center" style="border-top: 1px solid black;">
+                                                    <span t-field="o.payment_term_id.name"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                                <!--  Table-2 -->
+                                <table class="table table-sm o_main_table" style="font-size: 14px;line-height: 1.3;">
+                                    <thead class="main_border"
+                                           style="border: 1px solid black;background-color: lightgray;">
+                                        <tr>
+                                            <th name="th_vendor" class="text-center"
+                                                style="border-top: 1px solid black;border-right: 1px solid black;">
+                                                <strong>Vendor Contact</strong>
+                                            </th>
+                                            <th name="th_vtel" class="text-center"
+                                                style="border-top: 1px solid black;border-right: 1px solid black;">
+                                                <strong>Vendor Tel.</strong>
+                                            </th>
+                                            <th name="th_email" class="text-center"
+                                                style="border-top: 1px solid black;border-right: 1px solid black;">
+                                                <strong>Vendor E-mail</strong>
+                                            </th>
+                                            <th name="th_currency" class="text-center"
+                                                style="border-top: 1px solid black;border-right: 1px solid black;">
+                                                <strong>Currency</strong>
+                                            </th>
+                                            <th name="th_incoterms" class="text-center"
+                                                style="border-top: 1px solid black;border-right: 1px solid black;">
+                                                <strong>Incoterms</strong>
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody style="text-align: center;">
+                                        <t t-foreach="docs" t-as="o">
+                                            <tr>
+                                                <td style="border-top: 1px solid black;">
+                                                    <span t-esc="o.partner_id.name"/>
+                                                </td>
+                                                <td style="border-top: 1px solid black;">
+                                                    <span t-esc="o.partner_id.phone"/>
+                                                </td>
+                                                <td style="border-top: 1px solid black;">
+                                                    <span t-esc="o.partner_id.email"/>
+                                                </td>
+                                                <td class="text-center" style="border-top: 1px solid black;">
+                                                    <span t-field="o.currency_id.name"/>
+                                                </td>
+                                                <td class="text-center" style="border-top: 1px solid black;">
+                                                    <span t-field="o.incoterm_id"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+
+
+                                <!--                                <div class="row zero_min_height">-->
+                                <!--                                    <div class="col-12">-->
+                                <!--                                        <div style="border-bottom: 1px solid black;"/>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <!--                                <div class="row">-->
+                                <!--                                    <div class="col-6" name="company_address">-->
+                                <!--                                        <div t-field="o.company_id.partner_id"-->
+                                <!--                                             t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'-->
+                                <!--                                        />-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                            </div>
+
+
+                            <!--  Table 3 -->
+                            <t t-set="total_qty" t-value="0"/>
+                            <table class="table table-sm" style="font-size: 14px;">
+                                <thead class="main_border">
+                                    <tr>
+                                        <th name="th_sn" class="text-center">
+                                            <strong>S/N</strong>
+                                        </th>
+                                        <th name="th_code" class="text-center">
+                                            <strong>Code</strong>
+                                        </th>
+                                        <th name="th_description" class="text-center">
+                                            <strong>Description</strong>
+                                        </th>
+                                        <!--                                    <th name="th_taxes">-->
+                                        <!--                                        <strong>Taxes</strong>-->
+                                        <!--                                    </th>-->
+                                        <!--                                    <th name="th_date_req" class="text-center">-->
+                                        <!--                                        <strong>Date Req.</strong>-->
+                                        <!--                                    </th>-->
+                                        <th name="th_quantity" class="text-center">
+                                            <strong>Qty</strong>
+                                        </th>
+                                        <th style="width: 16%;" name="th_price_unit" class="text-right">
+                                            <strong>Unit Price</strong>
+                                        </th>
+                                        <th style="width: 16%;" name="th_amount" class="text-center">
+                                            <strong>Total Price</strong>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="current_subtotal" t-value="0"/>
+                                    <t t-foreach="o.order_line" t-as="line">
+                                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal"
+                                           groups="account.group_show_line_subtotals_tax_excluded"/>
+                                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_total"
+                                           groups="account.group_show_line_subtotals_tax_included"/>
+
+                                        <tr t-att-class="'o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                            <t t-if="not line.display_type">
+                                                <td class="text-center">
+                                                    <span t-esc="line_index+1"/>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span t-esc="line.product_id.default_code"/>
+                                                </td>
+                                                <td id="product" class="text-left">
+                                                    <span t-field="line.product_id.name"/>
+                                                </td>
+
+                                                <!--                                            <td name="td_taxes">-->
+                                                <!--                                                <span t-esc="', '.join(map(lambda x: x.name, line.taxes_id))"/>-->
+                                                <!--                                            </td>-->
+                                                <!--                                            <td class="text-center">-->
+                                                <!--                                                <span t-field="line.date_planned"/>-->
+                                                <!--                                            </td>-->
+                                                <td class="text-center">
+                                                    <span t-esc="'%.0f'% line.product_qty"/>
+                                                    <t t-set="total_qty" t-value="total_qty+line.product_qty"/>
+                                                    <!--                                                <span t-field="line.product_uom.name" groups="uom.group_uom"/>-->
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-field="line.price_unit"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-field="line.price_subtotal"
+                                                          t-options='{"widget": "float", "precision": 2}'/>
+                                                </td>
+
+                                            </t>
+                                            <t t-if="line.display_type == 'line_section'">
+                                                <td colspan="99" id="section">
+                                                    <span t-field="line.name"/>
+                                                </td>
+                                                <t t-set="current_section" t-value="line"/>
+                                                <t t-set="current_subtotal" t-value="0"/>
+                                            </t>
+                                            <t t-if="line.display_type == 'line_note'">
+                                                <td colspan="99" id="note">
+                                                    <span t-field="line.name"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+
+                                        <t t-if="current_section and (line_last or o.order_line[line_index+1].display_type == 'line_section')">
+                                            <tr class="is-subtotal text-right">
+                                                <td colspan="99" id="subtotal">
+                                                    <strong class="mr16">Subtotal</strong>
+                                                    <span t-esc="current_subtotal"
+                                                          t-options='{"widget": "float", "precision": 2}'/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="font-weight: bold;page-break-inside: always;" class="text-center">
+                                            <div style="margin-left: -70px;">
+                                                Total Qty:
+                                                <span
+                                                        t-esc="'%.0f'% total_qty"/>
+                                            </div>
+
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                            <div id="total" class="row justify-content-end">
+                                <div class="col-6">
+                                    <table class="table table-sm" style="line-height: 1.1rem;">
+                                        <tr>
+                                            <thead class="main_border">
+                                                <th name="th_to">
+                                                    <strong>Special Instructions:</strong>
+                                                </th>
+                                            </thead>
+                                            <td style="border: 1px solid black;">
+                                                <p style="margin-bottom: 0px;" t-field="o.notes"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-1">
+                                </div>
+                                <div class="col-5" style="line-height: 1.2rem;">
+                                    <table>
+                                        <tr>
+                                            <td class="hide-border text-right" name="td_subtotal_label"
+                                                style="border-top: 1px solid white !important">
+                                                <strong>Sub total</strong>
+                                            </td>
+                                            <td class="text-right hide-border"
+                                                style="border-top: 1px solid white !important">
+                                                <span t-field="o.amount_untaxed"
+                                                      t-options='{"widget": "float", "precision": 2}'/>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="hide-border text-right"
+                                                style="border-top: 1px solid white !important" name="td_taxes_label">
+                                                Discount
+                                            </td>
+                                            <td class="text-right hide-border"
+                                                style="border-top: 1px solid white !important">
+                                                <span t-field="o.discount"
+                                                      t-options='{"widget": "float", "precision": 2}'/>
+                                            </td>
+
+
+                                            <!--                                        <td name="td_taxes_label">Shipping &quot; Handling Charges:</td>-->
+                                            <!--                                        <td class="text-right">-->
+                                            <!--                                            <span t-field="o.amount_untaxed"-->
+                                            <!--                                                  t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>-->
+                                            <!--                                        </td>-->
+
+                                        </tr>
+
+                                        <tr>
+                                            <td class="hide-border text-right"
+                                                style="border-top: 1px solid white !important" name="td_taxes_label">
+                                                Shipping &amp;
+                                                Handling Charges:
+                                            </td>
+                                            <td class="text-right hide-border"
+                                                style="border-top: 1px solid white !important">
+                                                <!--                                                <span t-field="o.invoice_ids.advance_payment" t-options='{"widget": "float", "precision": 2}'/>-->
+                                                <span t-field="o.shipping_cost"
+                                                      t-options='{"widget": "float", "precision": 2}'/>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="hide-border text-right"
+                                                style="border-top: 1px solid white !important" name="td_taxes_label">
+                                                Advance
+                                                Payment/Adjustment:
+                                            </td>
+                                            <td class="text-right hide-border"
+                                                style="border-top: 1px solid white !important">
+                                                <span t-field="o.amount_tax"
+                                                      t-options='{"widget": "float", "precision": 2}'/>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="o_total">
+                                            <td class="text-right" style="border-top: 2px solid white !important;"
+                                                name="td_amount_total_label">
+                                                <strong>Net Total</strong>
+                                            </td>
+                                            <td style="border-bottom: 1px solid black !important;" class="text-right">
+                                                <span t-field="o.net_total"
+                                                      t-options='{"widget": "float", "precision": 2}'/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="oe_structure"/>
+
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div class="last-page">
+                                <table class="table table-sm o_main_table" style="font-size:14px;">
+                                    <thead style="background-color: lightgray;">
+                                        <tr>
+                                            <th style="border: 1px solid black;" class="text-left">
+                                                <strong>Prepared By:</strong>
+                                            </th>
+                                            <th style="border: 1px solid black;" class="text-left">
+                                                <strong>Checked By:</strong>
+                                            </th>
+                                            <th style="border: 1px solid black;" class="text-left">
+                                                <strong>Authorized By:</strong>
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody style="text-align: left;">
+                                        <t t-foreach="docs" t-as="o">
+                                            <tr>
+                                                <td style="border: 1px solid black;" width="33%">
+                                                    <strong>Purchase Manager:</strong>
+                                                    <br/>
+                                                    <br/>
+                                                    <br/>
+                                                    <br/>
+                                                    <br/>
+                                                </td>
+                                                <td style="border: 1px solid black;" width="33%">
+                                                    <strong>Q.A. Manager:</strong>
+                                                    <br/>
+                                                    <br/>
+                                                    <br/>
+                                                    <br/>
+                                                    <br/>
+                                                </td>
+                                                <td style="border: 1px solid black;" width="33%">
+                                                    <strong>Operations Manager:</strong>
+                                                    <br/>
+                                                    <br/>
+                                                    <br/>
+                                                    <br/>
+                                                    <br/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+
+                        </t>
+
+                        <!--                                              FOOTER  -->
+                        <!--                        <div class="footer">-->
+
+                        <!--                        </div>-->
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <record id="paperformat_purchase_landscape" model="report.paperformat">
+            <field name="name">A4 new</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">125</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">118</field>
+            <field name="dpi">90</field>
+        </record>
+
+
+        <report
+                id="purchase_order_Report_ext"
+                model="purchase.order"
+                string="Purchase Report"
+                report_type="qweb-pdf"
+                name="purchase_delivery_reports.purchase_order_report_document_ext"
+                file="purchase_delivery_reports.purchase_order_report_document_ext"
+                paperformat="paperformat_purchase_landscape"
+                menu="True"
+        />
+
+
+    </data>
+</odoo>

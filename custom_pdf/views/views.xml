@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <!--        menu item for report-->
+        <!--        <record id="custom_pdf_report_call" model="ir.actions.server">-->
+        <!--            <field name="name">pdf report</field>-->
+        <!--            <field name="model_id" ref="sale.model_sale_order"/>-->
+        <!--            <field name="binding_model_id" ref="sale.model_sale_order"/>-->
+        <!--            <field name="state">code</field>-->
+        <!--            <field name="code">-->
+        <!--                model.action_create_pdf()-->
+        <!--            </field>-->
+        <!--        </record>-->
+        <record id="open_sale_order_wizard_form" model="ir.ui.view">
+            <field name="name">Open Sale Order Report</field>
+            <field name="model">wizard.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <h3>Open Sale Order</h3>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_create_pdf" string="Print PDF" type="object" class="btn-primary"/>
+                        <button name="action_create_xlsx" string="Print Xlsx" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--        wizard action-->
+        <record id="custom_pdf_report_call" model="ir.actions.act_window">
+            <field name="name">Open Sale Order Report</field>
+            <field name="res_model">wizard.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem name="Open Sale Orders Report"
+                  id="custom_pdf_report"
+                  parent="sale.menu_sale_report"
+                  action="custom_pdf_report_call"/>
+        <!--        server action-->
+
+    </data>
+</odoo>

@@ -1,0 +1,48 @@
+<odoo>
+  <data>
+      <record id="customer_view_form_extention" model="ir.ui.view">
+            <field name="name">customer.view.form.ext</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="replace">
+                    <field name="fax_number"/>
+                    <field name="vat" placeholder="e.g. BE0477472701" attrs="{'readonly': [('parent_id','!=',False)]}" string="NTN Number"/>
+                    <field name="strn_number"/>
+                </xpath>
+                <xpath expr="//field[@name = 'child_ids']/form/sheet/group/group[2]/field[@name='mobile']" position="after">
+                    <field name="fax"/>
+                    <field name="department_char"/>
+                </xpath>
+                <xpath expr="//field[@name = 'child_ids']/form/sheet/group/group[1]/field[@name='title']" position="replace">
+                    <field name="title" placeholder="e.g. Mr."/>
+                </xpath>
+
+                <xpath expr="//field[@name = 'child_ids']/form/sheet/group/group[1]/field[@name='function']" position="replace">
+                    <field name="function" placeholder="e.g. Sales Director"/>
+                </xpath>
+            </field>
+
+        </record>
+
+      <record id="custom_view_product_form_ext" model="ir.ui.view">
+            <field name="name">view_product</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='barcode']" position="after">
+                    <field name="country_origin"/>
+                    <field name="manufacturer"/>
+                    <field name="registration_no"/>
+                    <field name="registration_status"/>
+                    <field name="order_class"/>
+                </xpath>
+
+              <xpath expr="//field[@name='default_code']" position="replace">
+                  <field name="default_code" attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}" string="Product Code"/>
+                </xpath>
+            </field>
+        </record>
+
+  </data>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="create_annexure_form_test_wizard" model="ir.ui.view">
+        <field name="name">create.annexure.form.test.wizard</field>
+        <field name="model">annexure.reportform</field>
+        <field name="arch" type="xml">
+            <form>
+                <group class="oe_title">
+                    <field name="start_at"/>
+                    <field name="stop_at"/>
+                </group>
+                <footer>
+                    <button name="get_excel_report" string="Generate Excel Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="wizard_action_form_fields" model="ir.actions.act_window">
+        <field name="name">Create Annexure Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">annexure.reportform</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="create_annexure_form_test_wizard"/>
+        <field name="target">new</field>
+    </record>
+</odoo>
